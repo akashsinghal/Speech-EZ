@@ -107,7 +107,12 @@ class ViewController : UIViewController, AudioControllerDelegate {
                             self?.audio_processed.append(finalstringedresult)                        }
                     }
                 }
-                strongSelf.textView.text = response.description
+                var printingstring = ""
+                for element in (self?.audio_processed)!
+                {
+                    printingstring = printingstring + "" + element
+                }
+                strongSelf.textView.text = printingstring
             
                 if finished {
                     //strongSelf.stopAudio(strongSelf)
