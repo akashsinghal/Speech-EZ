@@ -49,9 +49,39 @@ class ViewController : UIViewController, AudioControllerDelegate {
   @IBOutlet weak var textView: UITextView!
   var audioData: NSMutableData!
     var audio_processed = [String]()
+    var audioRecorder: AVAudioRecorder?
   override func viewDidLoad() {
     super.viewDidLoad()
     AudioController.sharedInstance.delegate = self
+    let fileMgr = FileManager.default
+    
+    let dirPaths = fileMgr.urls(for: .documentDirectory,
+                                in: .userDomainMask)
+    
+    let soundFileURL = dirPaths[0].appendingPathComponent("sound.caf")
+    print(soundFileURL)
+    
+    let recordSettings =
+        [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue,
+         AVEncoderBitRateKey: 16,
+         AVNumberOfChannelsKey: 2,
+         AVSampleRateKey: 44100.0] as [String : Any]
+    
+    let audioSession = AVAudioSession.sharedInstance()
+    do {
+        try audioSession.setCategory(
+            AVAudioSessionCategoryPlayAndRecord)
+    } catch let error as NSError {
+        print("audioSession error: \(error.localizedDescription)")
+    }
+    
+    do {
+        try audioRecorder = AVAudioRecorder(url: soundFileURL,
+                                            settings: recordSettings as [String : AnyObject])
+        audioRecorder?.prepareToRecord()
+    } catch let error as NSError {
+        print("audioSession error: \(error.localizedDescription)")
+    }
   }
 
   @IBAction func recordAudio(_ sender: NSObject) {
@@ -65,6 +95,7 @@ class ViewController : UIViewController, AudioControllerDelegate {
     _ = AudioController.sharedInstance.prepare(specifiedSampleRate: SAMPLE_RATE)
     SpeechRecognitionService.sharedInstance.sampleRate = SAMPLE_RATE
     _ = AudioController.sharedInstance.start()
+    audioRecorder?.record()
   }
 
   @IBAction func stopAudio(_ sender: NSObject) {
@@ -74,6 +105,7 @@ class ViewController : UIViewController, AudioControllerDelegate {
     {
         print(element)
     }
+    audioRecorder?.stop()
   }
 
   func processSampleData(_ data: Data) -> Void {
