@@ -18,6 +18,7 @@ import AVFoundation
 import googleapis
 
 let SAMPLE_RATE = 16000
+var final_processed_string = ""
 extension String {
     func index(of string: String, options: CompareOptions = .literal) -> Index? {
         return range(of: string, options: options)?.lowerBound
@@ -145,9 +146,9 @@ class ViewController : UIViewController, AudioControllerDelegate {
                     printingstring = printingstring + "" + element
                 }
                 strongSelf.textView.text = printingstring
-            
                 if finished {
                     //strongSelf.stopAudio(strongSelf)
+                    final_processed_string = printingstring
                 }
             }
       })
