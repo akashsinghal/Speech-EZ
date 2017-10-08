@@ -1,15 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="jV3-lz-s9e">
+            <objects>
+                <viewController id="i7d-Lt-fap" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6uC-QV-hTn"/>
+                        <viewControllerLayoutGuide type="bottom" id="gDh-VE-oYr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ogq-iU-1oy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Input Your Speech Below" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xys-8v-fHt">
+                                <rect key="frame" x="92" y="169" width="191" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dQN-wU-7Gc">
+                                <rect key="frame" x="130" y="576" width="114" height="30"/>
+                                <state key="normal" title="Start Processing"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="yTJ-0P-ocI"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Enter Text Here" textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Djh-el-DOI">
+                                <rect key="frame" x="16" y="227" width="343" height="341"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dQN-wU-7Gc" firstAttribute="top" secondItem="Djh-el-DOI" secondAttribute="bottom" constant="8" id="75e-8z-QOE"/>
+                            <constraint firstItem="xys-8v-fHt" firstAttribute="leading" secondItem="ogq-iU-1oy" secondAttribute="leadingMargin" constant="76" id="9ch-OF-n5g"/>
+                            <constraint firstItem="Djh-el-DOI" firstAttribute="top" secondItem="xys-8v-fHt" secondAttribute="bottom" constant="37" id="Ngg-4v-rj9"/>
+                            <constraint firstItem="xys-8v-fHt" firstAttribute="top" secondItem="6uC-QV-hTn" secondAttribute="bottom" constant="149" id="RHg-9m-zss"/>
+                            <constraint firstItem="Djh-el-DOI" firstAttribute="leading" secondItem="ogq-iU-1oy" secondAttribute="leadingMargin" id="T8z-uM-DMj"/>
+                            <constraint firstItem="gDh-VE-oYr" firstAttribute="top" secondItem="dQN-wU-7Gc" secondAttribute="bottom" constant="61" id="Zz9-JQ-zce"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xys-8v-fHt" secondAttribute="trailing" constant="76" id="dXz-bb-5T4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dQN-wU-7Gc" secondAttribute="trailing" constant="115" id="i8A-Ru-fZV"/>
+                            <constraint firstItem="dQN-wU-7Gc" firstAttribute="leading" secondItem="ogq-iU-1oy" secondAttribute="leadingMargin" constant="114" id="oUE-ho-hx4"/>
+                            <constraint firstItem="Djh-el-DOI" firstAttribute="trailing" secondItem="ogq-iU-1oy" secondAttribute="trailingMargin" id="uFK-3B-ud7"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H4y-VC-Mh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-445.60000000000002" y="353.9730134932534"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
