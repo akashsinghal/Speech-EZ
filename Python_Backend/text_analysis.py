@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import http.client, urllib
+import httplib, urllib
 import requests
 import json
+from flask import Flask, render_template, request, jsonify
+
 
 # **********************************************
 # *** Update or verify the following values. ***
@@ -18,6 +20,9 @@ import json
 #
 # NOTE: Free trial access keys are generated in the westcentralus region, so if you are using
 # a free trial access key, you should not need to change this region.
+
+
+app = Flask(__name__)
 uri = 'westus.api.cognitive.microsoft.com'
 
 
@@ -33,7 +38,7 @@ def GetKeyPhrases (phrase):
         headers = {'Ocp-Apim-Subscription-Key': accessKey}
 
 
-        conn = http.client.HTTPSConnection (uri)
+        conn = httplib.HTTPSConnection (uri)
         conn.request ("POST", path, body, headers)
         response = conn.getresponse ()
 
@@ -60,7 +65,7 @@ def GetPOSTagging(phrase):
         headers = {'Ocp-Apim-Subscription-Key': accessKey}
 
 
-        conn = http.client.HTTPSConnection (uri)
+        conn = httplib.HTTPSConnection (uri)
         conn.request ("POST", path, body, headers)
         response = conn.getresponse ()
         resultdata = json.loads(response.read())
@@ -149,13 +154,18 @@ print("")
 print(percentageAccuracy(actualText, recitedText))
 """
 
+@app.route('/getAccuracies')
+def returnAccuracies():
 
-actualText = "The hippocampus is a major component of the brains of humans and other vertebrates. It belongs to the limbic system and plays important roles in the consolidation of information from short-term memory to long-term memory and spatial navigation. Humans and other mammals have two hippocampi, one in each side of the brain. The hippocampus is a part of the cerebral cortex; and in primates it is located in the medial temporal lobe, underneath the cortical surface. It contains two main interlocking parts: Ammon's horn and the dentate gyrus."
-recitedText = "An important part of the brains of humans and other vertebrates is the hippocampus. It's part of the limbic system and moves information from short-term to long-term memory. It also helps us move around. Humans and other mammals have two hippocampi, one on each side. The hippocampus is a part of the cerebral cortex; and in primates it is found in the medial temporal lobe, beneathe the cortical surface. It has two main interlocking parts: Ammon's horn and the dentate gyrus."
+    actualAndRecitedText = json.loads(request.get_json())
+    actualText = actualAndRecitedText["actualText"]
+    recitedText = actualAndRecitedText["recitedText"]
 
-actualTextKeyWords = GetKeyWords(GetKeyPhrases(actualText))
+    actualTextKeyWords = GetKeyWords(GetKeyPhrases(actualText))
 
-recitedTextKeyWords = GetKeyWords(GetKeyPhrases(recitedText))
+    recitedTextKeyWords = GetKeyWords(GetKeyPhrases(recitedText))
 
-print(percentageAccuracy(actualTextKeyWords, recitedTextKeyWords))
-print(twin_words_accuracy_score(actualText, recitedText))
+    #rv = jsonify({"Rishis method": percentageAccuracy(actualTextKeyWords, recitedTextKeyWords), "Twin Words": twin_words_accuracy_score(actualText, recitedText)})
+
+    rv = json.dumps({"Rishis method": percentageAccuracy(actualTextKeyWords, recitedTextKeyWords), "Twin Words": twin_words_accuracy_score(actualText, recitedText)})
+    return rv

@@ -48,7 +48,11 @@ extension String {
 class ViewController : UIViewController, AudioControllerDelegate {
     
   @IBOutlet weak var textView: UITextView!
-  var audioData: NSMutableData!
+    
+    @IBOutlet weak var AccuracyLabel1: UILabel!
+    @IBOutlet weak var AccuracyLabel2: UILabel!
+    @IBOutlet weak var original_text: UITextView!
+    var audioData: NSMutableData!
     var audio_processed = [String]()
     var audioRecorder: AVAudioRecorder?
   override func viewDidLoad() {
@@ -85,7 +89,10 @@ class ViewController : UIViewController, AudioControllerDelegate {
     }
   }
 
-  @IBAction func recordAudio(_ sender: NSObject) {
+    @IBAction func start_processing(_ sender: Any) {
+        self.view.endEditing(true)
+    }
+    @IBAction func recordAudio(_ sender: NSObject) {
     let audioSession = AVAudioSession.sharedInstance()
     do {
       try audioSession.setCategory(AVAudioSessionCategoryRecord)
@@ -107,6 +114,33 @@ class ViewController : UIViewController, AudioControllerDelegate {
         print(element)
     }
     audioRecorder?.stop()
+    print(final_processed_string)
+    let json: [String: Any] = ["actualText": "Hi my name is John and I like icecream.",
+                               "recitedText": final_processed_string]
+    
+    let jsonData = try? JSONSerialization.data(withJSONObject: json)
+    
+    // create post request
+    let url = URL(string: "https://snappy-frame-171902.appspot.com/getAccuracies")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    
+    // insert json data to the request
+    request.httpBody = jsonData
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        guard let data = data, error == nil else {
+            print(error?.localizedDescription ?? "No data")
+            return
+        }
+        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        print(JSONSerialization.isValidJSONObject(data))
+        if let dict = responseJSON as? [String: Any]{
+            self.AccuracyLabel1.text = String(describing: dict["Rishis method"])
+            self.AccuracyLabel2.text = String(describing: dict["Twin Words"])
+        }
+    }
+    
+    task.resume()
   }
 
   func processSampleData(_ data: Data) -> Void {
@@ -149,6 +183,7 @@ class ViewController : UIViewController, AudioControllerDelegate {
                 if finished {
                     //strongSelf.stopAudio(strongSelf)
                     final_processed_string = printingstring
+                    
                 }
             }
       })

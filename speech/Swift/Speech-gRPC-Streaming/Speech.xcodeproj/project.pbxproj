@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1588BBAC1F89B8310049D2DA /* AccuracyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1588BBAB1F89B8310049D2DA /* AccuracyController.swift */; };
 		2C450CC6320CA9890051ABAF /* Pods_Speech.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B7F558BD8BC89862C8C277 /* Pods_Speech.framework */; };
 		D31E0EB81D778A56006A50AB /* SpeechRecognitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31E0EB71D778A56006A50AB /* SpeechRecognitionService.swift */; };
 		D31E0EBA1D77AA2F006A50AB /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31E0EB91D77AA2F006A50AB /* AudioController.swift */; };
@@ -19,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1588BBAB1F89B8310049D2DA /* AccuracyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccuracyController.swift; sourceTree = "<group>"; };
 		54C3D1E96C8C43AB14662311 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E83ACE29B0D0DF0085BA8F2 /* Pods-Speech.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Speech.release.xcconfig"; path = "Pods/Target Support Files/Pods-Speech/Pods-Speech.release.xcconfig"; sourceTree = "<group>"; };
 		6C682F8DD9C94E41979FE816 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				D34C17DD1C948F5800D69BCA /* Info.plist */,
 				D34C17DA1C948F5800D69BCA /* LaunchScreen.storyboard */,
 				D392D9851C94937D002F5132 /* Main.storyboard */,
-				1588BBAB1F89B8310049D2DA /* AccuracyController.swift */,
 				D3E34E9F1D77541C00EF755D /* Speech-Bridging-Header.h */,
 				D31E0EB71D778A56006A50AB /* SpeechRecognitionService.swift */,
 				D34C17CC1C948F5700D69BCA /* Supporting Files */,
@@ -237,7 +234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D31E0EBA1D77AA2F006A50AB /* AudioController.swift in Sources */,
-				1588BBAC1F89B8310049D2DA /* AccuracyController.swift in Sources */,
 				D31E0EB81D778A56006A50AB /* SpeechRecognitionService.swift in Sources */,
 				D3E34EA51D7757CC00EF755D /* ViewController.swift in Sources */,
 				D3E34EA11D77541D00EF755D /* AppDelegate.swift in Sources */,
@@ -360,7 +356,7 @@
 				);
 				INFOPLIST_FILE = Speech/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.VolIndustries.speech-grpc-streaming";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.VolIndustries.speech-grpc-streaming1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Speech/Speech-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -377,7 +373,7 @@
 				DEVELOPMENT_TEAM = W5K2KQXN9P;
 				INFOPLIST_FILE = Speech/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.VolIndustries.speech-grpc-streaming";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.VolIndustries.speech-grpc-streaming1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Speech/Speech-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
