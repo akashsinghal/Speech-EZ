@@ -133,10 +133,15 @@ class ViewController : UIViewController, AudioControllerDelegate {
             return
         }
         let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-        print(JSONSerialization.isValidJSONObject(data))
+        //print(JSONSerialization.isValidJSONObject(data))
+        print(type(of: data))
+        print(data)
+        print(responseJSON)
         if let dict = responseJSON as? [String: Any]{
             self.AccuracyLabel1.text = String(describing: dict["Rishis method"])
             self.AccuracyLabel2.text = String(describing: dict["Twin Words"])
+            print(dict["Rishis method"])
+            print(dict["Twin Words"])
         }
     }
     

@@ -167,5 +167,5 @@ def returnAccuracies():
 
     #rv = jsonify({"Rishis method": percentageAccuracy(actualTextKeyWords, recitedTextKeyWords), "Twin Words": twin_words_accuracy_score(actualText, recitedText)})
 
-    rv = json.dumps({"Rishis method": percentageAccuracy(actualTextKeyWords, recitedTextKeyWords), "Twin Words": twin_words_accuracy_score(actualText, recitedText)})
+    rv = json.dumps({"Rishis method": str(percentageAccuracy(actualTextKeyWords, recitedTextKeyWords)), "Twin Words": str(twin_words_accuracy_score(actualText, recitedText))})
     return rv
