@@ -115,37 +115,68 @@ class ViewController : UIViewController, AudioControllerDelegate {
     }
     audioRecorder?.stop()
     print(final_processed_string)
-    let json: [String: Any] = ["actualText": "Hi my name is John and I like icecream.",
-                               "recitedText": final_processed_string]
+    let dict = ["actualText": "Hi my name is John and I like icecream.", "recitedText": final_processed_string] as [String: Any]
     
-    let jsonData = try? JSONSerialization.data(withJSONObject: json)
-    
-    // create post request
-    let url = URL(string: "https://snappy-frame-171902.appspot.com/getAccuracies")!
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    
-    // insert json data to the request
-    request.httpBody = jsonData
-    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        guard let data = data, error == nil else {
-            print(error?.localizedDescription ?? "No data")
-            return
+    if let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: .prettyPrinted) {
+        
+        let url = NSURL(string: "https://snappy-frame-171902.appspot.com/getAccuracies")!
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest){ data,response,error in
+            if error != nil{
+                print(error?.localizedDescription)
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
+                
+                if let parseJSON = json {
+                    let resultValue:String = parseJSON["success"] as! String;
+                    print("result: \(resultValue)")
+                    print(parseJSON)
+                }
+            } catch let error as NSError {
+                print(error)
+            }
         }
-        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-        //print(JSONSerialization.isValidJSONObject(data))
-        print(type(of: data))
-        print(data)
-        print(responseJSON)
-        if let dict = responseJSON as? [String: Any]{
-            self.AccuracyLabel1.text = String(describing: dict["Rishis method"])
-            self.AccuracyLabel2.text = String(describing: dict["Twin Words"])
-            print(dict["Rishis method"])
-            print(dict["Twin Words"])
-        }
+        task.resume()
     }
-    
-    task.resume()
+//    let json: [String: Any] = ["actualText": "Hi my name is John and I like icecream.",
+//                               "recitedText": final_processed_string]
+//
+//    let jsonData = try? JSONSerialization.data(withJSONObject: json)
+//
+//    // create post request
+//    let url = URL(string: "https://snappy-frame-171902.appspot.com/getAccuracies")!
+//    var request = URLRequest(url: url)
+//    request.httpMethod = "POST"
+//
+//    // insert json data to the request
+//    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//    request.httpBody = jsonData
+//    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//        guard let data = data, error == nil else {
+//            print(error?.localizedDescription ?? "No data")
+//            return
+//        }
+//        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+//        print(JSONSerialization.isValidJSONObject(data))
+////        print(type(of: data))
+////        print(data)
+////        print(responseJSON)
+//        if let dict = responseJSON as? [String: Any]{
+//            self.AccuracyLabel1.text = String(describing: dict["Rishis method"])
+//            self.AccuracyLabel2.text = String(describing: dict["Twin Words"])
+//            print(dict["Rishis method"])
+//            print(dict["Twin Words"])
+//        }
+//    }
+//
+//    task.resume()
   }
 
   func processSampleData(_ data: Data) -> Void {
